@@ -1,6 +1,7 @@
 {
    "type": "mongodb",
-   "database": "test",
+   "host": "localhost",
+   "database": "user",
    "synchronize": true,
    "logging": false,
    "entities": [
