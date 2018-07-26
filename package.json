@@ -1,18 +1,41 @@
 {
-   "name": "server",
-   "version": "0.0.1",
-   "description": "Awesome project developed with TypeORM.",
-   "devDependencies": {
-      "ts-node": "7.0.0",
-      "@types/node": "^10.5.2",
-      "typescript": "2.9.2"
-   },
-   "dependencies": {
-      "typeorm": "0.2.7",
-      "reflect-metadata": "^0.1.12",
-      "mongodb": "^3.1.1"
-   },
-   "scripts": {
-      "start": "ts-node src/index.ts"
-   }
+    "name": "server",
+    "version": "0.0.1",
+    "description": "Awesome project developed with TypeORM.",
+    "devDependencies": {
+        "@types/jsonwebtoken": "^7.2.8",
+        "@types/koa": "^2.0.46",
+        "@types/koa-bodyparser": "^5.0.1",
+        "@types/koa-helmet": "^3.1.2",
+        "@types/koa-json": "^2.0.18",
+        "@types/koa-jwt": "^3.3.0",
+        "@types/koa-logger": "^3.1.0",
+        "@types/koa-multer": "^1.0.0",
+        "@types/koa-router": "^7.0.30",
+        "@types/koa-static": "^4.0.0",
+        "@types/node": "^10.5.2",
+        "nodemon": "^1.18.3",
+        "ts-node": "7.0.0",
+        "typescript": "2.9.2"
+    },
+    "dependencies": {
+        "body-parser": "^1.18.3",
+        "jsonwebtoken": "^8.3.0",
+        "koa": "^2.5.2",
+        "koa-bodyparser": "^4.2.1",
+        "koa-helmet": "^4.0.0",
+        "koa-json": "^2.0.2",
+        "koa-jwt": "^3.3.2",
+        "koa-logger": "^3.2.0",
+        "koa-multer": "^1.0.2",
+        "koa-router": "^7.4.0",
+        "lodash": "^4.17.10",
+        "mongodb": "^3.1.1",
+        "reflect-metadata": "^0.1.12",
+        "routing-controllers": "^0.7.7",
+        "typeorm": "0.2.7"
+    },
+    "scripts": {
+        "start": "ts-node src/index.ts"
+    }
 }
