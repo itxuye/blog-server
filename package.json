@@ -13,6 +13,7 @@
         "@types/koa-multer": "^1.0.0",
         "@types/koa-router": "^7.0.30",
         "@types/koa-static": "^4.0.0",
+        "@types/koa-views": "^2.0.3",
         "@types/node": "^10.5.2",
         "nodemon": "^1.18.3",
         "ts-node": "7.0.0",
@@ -29,6 +30,8 @@
         "koa-logger": "^3.2.0",
         "koa-multer": "^1.0.2",
         "koa-router": "^7.4.0",
+        "koa-static": "^5.0.0",
+        "koa-views": "^6.1.4",
         "lodash": "^4.17.10",
         "mongodb": "^3.1.1",
         "reflect-metadata": "^0.1.12",
@@ -36,6 +39,8 @@
         "typeorm": "0.2.7"
     },
     "scripts": {
-        "start": "ts-node src/index.ts"
+        "start": "pm2 start config/pm2.dev.config.json && pm2 logs",
+		"deploy": "pm2 start config/pm2.prod.config.json",
+		"del": "pm2 delete all"
     }
 }
