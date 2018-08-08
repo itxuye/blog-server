@@ -1,11 +1,16 @@
 import "reflect-metadata";
 import * as Koa from 'koa'
-import {createConnection} from "typeorm";
-import { useKoaServer } from 'routing-controllers'
+import { createConnection, useContainer as ormUseContainer, } from "typeorm";
+import { useKoaServer, useContainer as routingUseContainer, } from 'routing-controllers'
 import * as bodyParser from 'koa-bodyparser'
 import * as logger from 'koa-logger'
 import * as json from 'koa-json'
 import * as helmet from 'koa-helmet'
+import { Container } from 'typedi';
+
+// config ioc container
+routingUseContainer(Container);
+ormUseContainer(Container);
 
 createConnection().then(async connection => {
 
@@ -15,8 +20,8 @@ createConnection().then(async connection => {
     server.use(logger())
     server.use(bodyParser())
 
-      // 绑定路由
-      const app = useKoaServer(server, {
+    // 绑定路由
+    const app = useKoaServer(server, {
         controllers: [__dirname + '/controllers/*{.js,.ts,.tsx}']
     })
 
