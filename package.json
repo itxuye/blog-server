@@ -40,7 +40,7 @@
     "typescript": "^3.2.2"
   },
   "dependencies": {
-    "@graphql-modules/core": "^0.2.17",
+    "@graphql-modules/core": "^0.2.18",
     "apollo-server": "^2.2.6",
     "body-parser": "^1.18.3",
     "class-transformer": "^0.2.0",
@@ -68,7 +68,8 @@
     "routing-controllers": "^0.7.7",
     "tsconfig-paths": "^3.7.0",
     "typedi": "^0.8.0",
-    "typeorm": "0.2.7"
+    "typeorm": "0.2.7",
+    "typeorm-typedi-extensions": "^0.2.1"
   },
   "scripts": {
     "generate": "gql-gen --config ./codegen.yml",
