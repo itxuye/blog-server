@@ -1,10 +1,10 @@
-import "graphql-import-node";
 import { GraphQLModule } from "@graphql-modules/core";
 import { Users } from "./providers/users";
-import resolvers from "./resolvers";
-import * as typeDefs from "./index.graphql";
+import { loadResolversFiles, loadSchemaFiles } from "@graphql-modules/sonar";
+import { mergeGraphQLSchemas, mergeResolvers } from "@graphql-modules/epoxy";
+
 export const UserModule = new GraphQLModule({
   providers: [Users],
-  resolvers,
-  typeDefs
+  typeDefs: mergeGraphQLSchemas(loadSchemaFiles(__dirname + "/schema/")),
+  resolvers: mergeResolvers(loadResolversFiles(__dirname + "/resolvers/"))
 });

@@ -5,6 +5,7 @@ require:
   - tsconfig-paths/register
 generates:
   ./src/typings/generated-models.d.ts:
+    na
     plugins:
       - typescript-common
       - typescript-server

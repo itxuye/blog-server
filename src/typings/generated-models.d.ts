@@ -1,7 +1,9 @@
-export interface AdditionalEntityFields {
-  path?: string | null;
+export type Maybe<T> = T | null;
 
-  type?: string | null;
+export interface AdditionalEntityFields {
+  path?: Maybe<string>;
+
+  type?: Maybe<string>;
 }
 
 // ====================================================
@@ -9,35 +11,42 @@ export interface AdditionalEntityFields {
 // ====================================================
 
 export interface Query {
-  users?: (User | null)[] | null;
+  users?: Maybe<(Maybe<User>)[]>;
 
-  user?: User | null;
+  userById?: Maybe<User>;
 
-  posts?: (Post | null)[] | null;
+  userByUserName?: Maybe<User>;
 }
 
 export interface User {
-  id?: string | null;
+  id?: Maybe<string>;
 
-  username?: string | null;
-
-  posts?: (Post | null)[] | null;
+  userName?: Maybe<string>;
 }
 
-export interface Post {
-  id?: string | null;
+export interface Mutation {
+  createUser: User;
 
-  title?: string | null;
-
-  author?: User | null;
+  deleteUser: number;
 }
 
 // ====================================================
 // Arguments
 // ====================================================
 
-export interface UserQueryArgs {
-  id: number;
+export interface UserByIdQueryArgs {
+  id: string;
+}
+export interface UserByUserNameQueryArgs {
+  userName: string;
+}
+export interface CreateUserMutationArgs {
+  id: string;
+
+  userName: string;
+}
+export interface DeleteUserMutationArgs {
+  id: string;
 }
 
 import { ObjectID } from "mongodb";
