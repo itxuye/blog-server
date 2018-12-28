@@ -16,7 +16,7 @@ export class Users {
     return this.userRepository.find();
   }
 
-  async createUser(user: any) {
+  async createUser(user: User) {
     await this.userRepository.save(user);
     // console.log(user);
     return user;
