@@ -16,9 +16,9 @@ export class Users {
     return this.userRepository.find();
   }
 
-  async createUser(user: any) {
-    await this.userRepository.save(user);
+  async createUser(user: any): Promise<User> {
+    const userResult = await this.userRepository.save(user);
     // console.log(user);
-    return user;
+    return userResult;
   }
 }
