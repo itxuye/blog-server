@@ -4,12 +4,14 @@ import { CreateUserMutationArgs, User } from "src/typings/generated-models";
 
 export default {
   Mutation: {
-    createUser: (
+    createUser: async (
       root,
       args: { user: CreateUserMutationArgs },
       { injector }: ModuleContext
-    ): User => {
-      return injector.get(Users).createUser(args.user);
+    ): Promise<User> => {
+      console.log(args)
+      const userRes = await injector.get(Users).createUser(args.user);
+      return userRes;
     }
   }
 };
