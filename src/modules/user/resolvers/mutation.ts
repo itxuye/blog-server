@@ -8,6 +8,8 @@ export default {
       root,
       args: { user: CreateUserMutationArgs },
       { injector }: ModuleContext
-    ) => injector.get(Users).createUser(args.user)
+    ) => {
+      return injector.get(Users).createUser(args.user);
+    }
   }
 };
