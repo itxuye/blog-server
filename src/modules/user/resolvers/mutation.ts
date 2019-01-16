@@ -1,15 +1,16 @@
 import { Users } from "../providers/users";
 import { ModuleContext } from "@graphql-modules/core";
-import { CreateUserMutationArgs } from "src/typings/generated-models";
+import { CreateUserMutationArgs } from "@/typings/generated-models";
 
 export default {
   Mutation: {
     createUser: (
       root,
       args: { user: CreateUserMutationArgs },
-      { injector }: ModuleContext
+      context: ModuleContext
     ) => {
-      return injector.get(Users).createUser(args.user);
+      return context.injector.get(Users).createUser(args.user);
     }
   }
 };
+
