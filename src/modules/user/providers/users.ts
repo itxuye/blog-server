@@ -9,11 +9,10 @@ export class Users {
     this.userRepository = getRepository(UserEntity);
   }
   async allUsers() {
-    const userResult = await this.userRepository.find();
-    return userResult;
+    return this.userRepository.find();
   }
 
   async createUser(user: User): Promise<User> {
-    return await this.userRepository.save(user);
+    return this.userRepository.save(user);
   }
 }

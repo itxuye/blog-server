@@ -19,7 +19,7 @@
   "devDependencies": {
     "@types/jest": "^23.3.10",
     "@types/jsonwebtoken": "^8.3.0",
-    "@types/koa": "^2.0.47",
+    "@types/koa": "^2.0.48",
     "@types/koa-bodyparser": "^4.2.1",
     "@types/koa-helmet": "^3.1.2",
     "@types/koa-json": "^2.0.18",
@@ -44,6 +44,7 @@
     "@graphql-modules/epoxy": "^0.2.18",
     "@graphql-modules/sonar": "^0.2.18",
     "apollo-server": "^2.3.1",
+    "apollo-server-koa": "^2.3.1",
     "body-parser": "^1.18.3",
     "class-transformer": "^0.2.0",
     "class-validator": "^0.9.1",
