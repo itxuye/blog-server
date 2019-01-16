@@ -1,24 +1,19 @@
 import { Injectable } from "@graphql-modules/di";
-import { Repository } from "typeorm";
-import { InjectRepository, Service } from "typeorm-typedi-extensions";
+import { Repository, getRepository } from "typeorm";
 import { User } from "../../../typings/generated-models";
 import UserEntity from "../../../entity/User";
 @Injectable()
-@Service()
 export class Users {
-  constructor(
-    @InjectRepository(UserEntity) private userRepository: Repository<UserEntity>
-  ) {}
-  getUser(username: string) {
-    return this.userRepository.findOne(username);
+  private readonly userRepository: Repository<UserEntity>;
+  constructor() {
+    this.userRepository = getRepository(UserEntity);
   }
-
-  allUsers() {
-    return this.userRepository.find();
+  async allUsers() {
+    const userResult = await this.userRepository.find();
+    return userResult;
   }
 
   async createUser(user: User): Promise<User> {
-    const userResult = await this.userRepository.save(user);
-    return userResult;
+    return await this.userRepository.save(user);
   }
 }

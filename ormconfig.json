@@ -1,21 +1,18 @@
 {
-   "type": "mongodb",
-   "host": "localhost",
-   "database": "user",
-   "synchronize": true,
-   "logging": false,
-   "entities": [
-      "src/entity/**/*.ts"
-   ],
-   "migrations": [
-      "src/migration/**/*.ts"
-   ],
-   "subscribers": [
-      "src/subscriber/**/*.ts"
-   ],
-   "cli": {
-      "entitiesDir": "src/entity",
-      "migrationsDir": "src/migration",
-      "subscribersDir": "src/subscriber"
-   }
+  "type": "mysql",
+  "host": "localhost",
+  "post": 3306,
+  "database": "test111",
+  "username": "root",
+  "password": "itxuye",
+  "synchronize": true,
+  "logging": false,
+  "entities": ["src/entity/**/*.ts"],
+  "migrations": ["src/migration/**/*.ts"],
+  "subscribers": ["src/subscriber/**/*.ts"],
+  "cli": {
+    "entitiesDir": "src/entity",
+    "migrationsDir": "src/migration",
+    "subscribersDir": "src/subscriber"
+  }
 }
