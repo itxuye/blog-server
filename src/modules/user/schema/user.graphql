@@ -1,9 +1,0 @@
-type User {
-  id: String
-  userName: String
-}
-
-input UserInput {
-  id: String
-  userName: String
-}
