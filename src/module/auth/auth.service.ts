@@ -4,8 +4,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, FindOneOptions, FindManyOptions } from 'typeorm';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
-import { authConfig } from '../config';
-import { Token as TokenEntity } from './tokens.entity';
+import { authConfig } from '../../config';
+import { Token as TokenEntity } from './token.entity';
 
 @Injectable()
 export class AuthService {

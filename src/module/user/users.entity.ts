@@ -5,14 +5,19 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
-
 @Entity()
-export class Token {
+export class User {
   @PrimaryGeneratedColumn()
   id: string;
 
+  @Column({ type: 'varchar', length: 500 })
+  name: string;
+
+  @Column({ type: 'varchar', unique: true })
+  email: string;
+
   @Column({ type: 'varchar' })
-  userId: string;
+  passwordHash: string;
 
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;
