@@ -1,5 +1,0 @@
-type Query {
-  users: [User]
-  userById(id: String!): User
-  userByUserName(userName: String!): User
-}
