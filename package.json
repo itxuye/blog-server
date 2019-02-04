@@ -12,12 +12,15 @@
     "start:debug": "nodemon --config nodemon-debug.json",
     "prestart:prod": "rimraf dist && npm run build",
     "start:prod": "node dist/main.js",
+    "start:hmr": "node dist/server",
     "lint": "tslint -p tsconfig.json -c tslint.json",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "webpack": "webpack --config webpack.config.js",
+    "dev": "npm run webpack & npm run start"
   },
   "dependencies": {
     "@nestjs/common": "^5.4.0",
@@ -26,6 +29,8 @@
     "@nestjs/passport": "^5.1.0",
     "@nestjs/typeorm": "^5.2.2",
     "apollo-server-express": "^2.3.3",
+    "bcrypt": "^3.0.3",
+    "cache-manager": "^2.9.0",
     "class-transformer": "^0.2.0",
     "class-validator": "^0.9.1",
     "compression": "^1.7.3",
@@ -35,6 +40,7 @@
     "graphql-tools": "^4.0.4",
     "joi": "^14.3.1",
     "jsonwebtoken": "^8.4.0",
+    "log4js": "^4.0.1",
     "mysql": "^2.16.0",
     "passport": "^0.4.0",
     "passport-http-bearer": "^1.0.1",
@@ -61,7 +67,10 @@
     "ts-loader": "^4.4.2",
     "ts-node": "^7.0.1",
     "tsconfig-paths": "^3.5.0",
-    "tslint": "5.11.0"
+    "tslint": "5.11.0",
+    "webpack": "^4.29.0",
+    "webpack-cli": "^3.2.1",
+    "webpack-node-externals": "^1.7.2"
   },
   "jest": {
     "moduleFileExtensions": [

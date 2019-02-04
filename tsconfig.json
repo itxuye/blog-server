@@ -1,14 +1,30 @@
 {
+  "module": "commonjs",
+  "declaration": true,
+  "removeComments": true,
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "**/*.spec.ts"],
   "compilerOptions": {
-    "module": "commonjs",
-    "declaration": true,
-    "removeComments": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "target": "es6",
-    "sourceMap": true,
+    "esModuleInterop": true,
+    "rootDir": "src",
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["./*"]
+    },
     "outDir": "./dist",
-    "baseUrl": "./"
-  },
-  "exclude": ["node_modules"]
+    "types": ["node"],
+    "typeRoots": ["node_modules/@types"],
+    "strictPropertyInitialization": false,
+    "emitDecoratorMetadata": true,
+    "strict": true,
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "allowJs": true,
+    "target": "es6",
+    "moduleResolution": "node",
+    "noImplicitAny": false,
+    "lib": ["dom", "es5", "es6", "es7", "es2015.promise"],
+    "sourceMap": true,
+    "pretty": true
+  }
 }

@@ -1,7 +1,7 @@
 import { Inject, forwardRef } from '@nestjs/common';
 import { Mutation, Query, Resolver } from '@nestjs/graphql';
 import { AuthService } from './auth.service';
-import { UsersService } from '../users/users.service';
+import { UsersService } from '../user/users.service';
 
 @Resolver('Auth')
 export class AuthResolvers {
