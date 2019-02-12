@@ -11,10 +11,7 @@ export class User {
   id: string;
 
   @Column({ type: 'varchar', length: 500 })
-  name: string;
-
-  @Column({ type: 'varchar', unique: true })
-  email: string;
+  username: string;
 
   @Column({ type: 'varchar' })
   passwordHash: string;

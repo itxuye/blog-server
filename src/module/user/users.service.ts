@@ -35,7 +35,7 @@ export class UsersService {
 
   async create(userPayload: UserPayload): Promise<User> {
     const duplicateUser = await this.findOne({
-      where: { email: userPayload.email },
+      where: { username: userPayload.username },
     });
 
     if (duplicateUser) {
@@ -44,8 +44,7 @@ export class UsersService {
 
     const newUser = new UserEntity();
 
-    newUser.name = userPayload.name;
-    newUser.email = userPayload.email;
+    newUser.username = userPayload.username;
     newUser.passwordHash = await this.hashPassword(userPayload.password);
 
     return this.usersRepository.save(newUser);
