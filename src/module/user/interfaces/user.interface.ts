@@ -1,12 +1,10 @@
 export interface User {
   id: string;
-  name: string;
-  email: string;
+  username: string;
   passwordHash: string;
 }
 
 export interface UserPayload {
-  name: string;
-  email: string;
+  username: string;
   password: string;
 }

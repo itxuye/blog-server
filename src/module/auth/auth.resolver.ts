@@ -1,5 +1,5 @@
 import { Inject, forwardRef } from '@nestjs/common';
-import { Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Mutation, Query, Resolver, Args } from '@nestjs/graphql';
 import { AuthService } from './auth.service';
 import { UsersService } from '../user/users.service';
 
@@ -11,9 +11,9 @@ export class AuthResolvers {
   ) {}
 
   @Query()
-  async login(obj, args) {
+  async login(@Args('username') username, @Args('password') password) {
     const user = await this.usersService.findOne({
-      where: { email: args.email },
+      where: { username: username },
     });
 
     if (!user) {
@@ -21,7 +21,7 @@ export class AuthResolvers {
     }
 
     const isValidPassword: boolean = await this.usersService.validatePassword(
-      args.password,
+      password,
       user.passwordHash,
     );
 

@@ -1,5 +1,5 @@
 type Query {
-  login(email: String!, password: String!): AuthData
+  login(username: String!, password: String!): AuthData
   refresh(refreshToken: String!): AuthData
 }
 
