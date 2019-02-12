@@ -1,8 +1,8 @@
 export const authConfig = {
-  secretKey: '',
-  expiresIn: '',
-  DEFAULT_USERNAME: '',
-  DEFAULT_PASS: '',
-  DB_PASS: '',
-  DB_NAME: '',
+  secretKey: 'rc2n39r9pc23j',
+  expiresIn: '7d',
+  DEFAULT_USERNAME: 'itxuye',
+  DEFAULT_PASS: 'ST19930522XY@xy',
+  DB_PASS: 'itxuye',
+  DB_NAME: 'itxuye_blog',
 };
