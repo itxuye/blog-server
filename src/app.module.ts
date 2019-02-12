@@ -23,8 +23,8 @@ import { AuthModule } from './module/auth/auth.module';
       host: 'localhost',
       port: 3306,
       username: 'root',
-      password: 'itxuye123',
-      database: 'test111',
+      password: authConfig.DB_PASS,
+      database: authConfig.DB_NAME,
       entities: [TokenEntity, UserEntity],
       synchronize: true,
     }),
@@ -57,7 +57,6 @@ function parseAuthToken(authorization) {
   if (!authorization) {
     return null;
   }
-  console.log(authorization);
   const authHeader = authorization.split(' ');
 
   if (authHeader[0].toLowerCase() !== 'bearer') {
