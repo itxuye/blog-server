@@ -2,10 +2,9 @@ import { CacheModule, Module, CacheInterceptor } from '@nestjs/common';
 import * as jwt from 'jsonwebtoken';
 
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { APP_INTERCEPTOR } from '@nestjs/core';
 import { GraphQLModule } from '@nestjs/graphql';
 
-import { authConfig } from './config';
+import config from './envconfig';
 
 // Entity
 import { Token as TokenEntity } from '././module/auth/token.entity';
@@ -23,8 +22,8 @@ import { AuthModule } from './module/auth/auth.module';
       host: 'localhost',
       port: 3306,
       username: 'root',
-      password: authConfig.DB_PASS,
-      database: authConfig.DB_NAME,
+      password: config.DB_PASS,
+      database: config.DB_NAME,
       entities: [TokenEntity, UserEntity],
       synchronize: true,
     }),
@@ -74,7 +73,7 @@ function parseAuthToken(authorization) {
 
 function jwtValidation(token) {
   try {
-    return jwt.verify(token, authConfig.secretKey);
+    return jwt.verify(token, config.secretKey);
   } catch (err) {
     return null;
   }

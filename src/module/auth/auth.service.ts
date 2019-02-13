@@ -4,7 +4,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, FindOneOptions, FindManyOptions } from 'typeorm';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
-import { authConfig } from '../../config';
+import config from '../../envconfig';
 import { Token as TokenEntity } from './token.entity';
 
 @Injectable()
@@ -22,8 +22,8 @@ export class AuthService {
     const tokenData = await this.tokensRepository.save(tokenEntity);
     const refreshToken = tokenData.id;
 
-    const accessToken = jwt.sign(user, authConfig.secretKey, {
-      expiresIn: authConfig.expiresIn,
+    const accessToken = jwt.sign(user, config.secretKey, {
+      expiresIn: config.expiresIn,
     });
 
     return {
