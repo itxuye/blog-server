@@ -1,0 +1,13 @@
+.idea/
+.vscode/
+node_modules/
+build/
+dist/
+tmp/
+temp/
+.DS_Store
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.history/
+# src/config.ts
