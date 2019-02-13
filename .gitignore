@@ -1,5 +1,6 @@
 .idea/
 .vscode/
+.next/
 node_modules/
 build/
 dist/
@@ -9,5 +10,6 @@ temp/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+production.env
+development.env
 .history/
-# src/config.ts
