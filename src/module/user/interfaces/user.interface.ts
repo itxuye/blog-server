@@ -1,10 +1,10 @@
-export interface User {
+export interface IUser {
   id: string;
   username: string;
   passwordHash: string;
 }
 
-export interface UserPayload {
+export interface IUserPayload {
   username: string;
   password: string;
 }

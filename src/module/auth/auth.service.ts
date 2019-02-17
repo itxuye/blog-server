@@ -3,7 +3,7 @@ import * as ms from 'ms';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, FindOneOptions, FindManyOptions } from 'typeorm';
-import { JwtPayload } from './interfaces/jwt-payload.interface';
+import { IJwtPayload } from './interfaces/jwt-payload.interface';
 import config from '../../envconfig';
 import { Token as TokenEntity } from './token.entity';
 
@@ -11,11 +11,11 @@ import { Token as TokenEntity } from './token.entity';
 export class AuthService {
   constructor(
     @InjectRepository(TokenEntity)
-    private readonly tokensRepository: Repository<TokenEntity>,
+    private readonly tokensRepository: Repository<TokenEntity>
   ) {}
 
   async createToken(userId: string) {
-    const user: JwtPayload = { userId };
+    const user: IJwtPayload = { userId };
 
     const tokenEntity = new TokenEntity();
     tokenEntity.userId = userId;
@@ -23,12 +23,12 @@ export class AuthService {
     const refreshToken = tokenData.id;
 
     const accessToken = jwt.sign(user, config.secretKey, {
-      expiresIn: config.expiresIn,
+      expiresIn: config.expiresIn
     });
 
     return {
       accessToken,
-      refreshToken,
+      refreshToken
     };
   }
 
@@ -52,7 +52,7 @@ export class AuthService {
     return await this.createToken(tokenData.userId);
   }
 
-  async validateUser(payload: JwtPayload): Promise<any> {
+  async validateUser(payload: IJwtPayload): Promise<any> {
     console.log(payload);
     // put some validation logic here
     // for example query user by id/email/username

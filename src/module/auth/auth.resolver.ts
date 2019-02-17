@@ -7,13 +7,13 @@ import { UsersService } from '../user/users.service';
 export class AuthResolvers {
   constructor(
     @Inject(forwardRef(() => UsersService)) private usersService: UsersService,
-    private readonly authService: AuthService,
+    private readonly authService: AuthService
   ) {}
 
   @Query()
   async login(@Args('username') username, @Args('password') password) {
     const user = await this.usersService.findOne({
-      where: { username: username },
+      where: { username }
     });
 
     if (!user) {
@@ -22,7 +22,7 @@ export class AuthResolvers {
 
     const isValidPassword: boolean = await this.usersService.validatePassword(
       password,
-      user.passwordHash,
+      user.passwordHash
     );
 
     if (!isValidPassword) {

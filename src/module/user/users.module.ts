@@ -10,7 +10,7 @@ import config from '../../envconfig';
 @Module({
   imports: [TypeOrmModule.forFeature([UserEntity])],
   providers: [UsersService, UsersResolvers],
-  exports: [UsersService],
+  exports: [UsersService]
 })
 export class UsersModule implements OnModuleInit {
   constructor(private readonly userService: UsersService) {}
@@ -18,12 +18,12 @@ export class UsersModule implements OnModuleInit {
   private async initUser() {
     const username: any = config.DEFAULT_USERNAME;
     const user = await this.userService.findOne({
-      where: { username },
+      where: { username }
     });
     if (!user) {
       await this.userService.create({
         username: config.DEFAULT_USERNAME,
-        password: config.DEFAULT_PASSWORD,
+        password: config.DEFAULT_PASSWORD
       });
     }
   }
