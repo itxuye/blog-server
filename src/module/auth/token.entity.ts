@@ -3,11 +3,12 @@ import {
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
-  UpdateDateColumn
+  UpdateDateColumn,
+  BaseEntity
 } from 'typeorm';
 
 @Entity()
-export class Token {
+export class Token extends BaseEntity{
   @PrimaryGeneratedColumn()
   id: string;
 
