@@ -5,29 +5,29 @@ import {
   OneToMany,
   CreateDateColumn,
   UpdateDateColumn,
-  BaseEntity,
+  BaseEntity
 } from 'typeorm';
 import { Article } from '../articles/article.entity';
 
 @Entity()
-export class Category extends BaseEntity {
+export class Tag extends BaseEntity {
   @PrimaryGeneratedColumn() id: number;
 
   @Column()
   name: string;
 
   @Column({
-      unique: true,
+    unique: true
   })
   slug: string;
 
   @Column({
-      default: 0,
+    default: 0
   })
   count: number;
 
   @Column({
-      nullable: true,
+    nullable: true
   })
   description: string;
 

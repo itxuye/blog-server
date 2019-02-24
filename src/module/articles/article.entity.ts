@@ -9,7 +9,7 @@ import {
   JoinColumn,
   BaseEntity
 } from 'typeorm';
-import { Category } from '../tags/Tag.entity';
+import { Tag } from '../tags/tag.entity';
 import { User } from '../user/users.entity';
 import { Comment } from '../comments/Comment.entity';
 
@@ -41,9 +41,9 @@ export class Article extends BaseEntity {
   @Column()
   categoryId: number;
 
-  @ManyToOne(type => Category)
-  @JoinColumn({ name: 'categoryId' })
-  category: Promise<Category>;
+  @ManyToOne(type => Tag)
+  @JoinColumn({ name: 'TagId' })
+  category: Promise<Tag>;
 
   @OneToMany(type => Comment, comment => comment.article)
   comments: Promise<Comment[]>;
