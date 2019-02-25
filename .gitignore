@@ -13,3 +13,4 @@ yarn-error.log*
 production.env
 development.env
 .history/
+logs/
