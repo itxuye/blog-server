@@ -12,7 +12,7 @@ import { Article as ArticleEntity } from '././module/articles/article.entity';
 import { Comment as CommentEntity } from '././module/comments/comment.entity';
 import { Tag as TagEntity } from '././module/tags/Tag.entity';
 
-//module
+// module
 import { UsersModule } from './module/user/users.module';
 import { AuthModule } from './module/auth/auth.module';
 import { ArticlesModule } from './module/articles/articles.module';

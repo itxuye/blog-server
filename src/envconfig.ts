@@ -3,13 +3,13 @@ import dotenv from 'dotenv';
 import { ConflictException, Injectable } from '@nestjs/common';
 import path from 'path';
 
-export interface EnvConfig {
+export interface IEnvConfig {
   [prop: string]: string;
 }
 
 @Injectable()
 export class ConfigService {
-  private readonly envConfig: EnvConfig;
+  private readonly envConfig: IEnvConfig;
 
   constructor(filePath: string) {
     const config = dotenv.parse(fs.readFileSync(filePath));
@@ -100,7 +100,7 @@ export class ConfigService {
       version: '1.0.0',
       author: 'itxuye',
       site: 'https://itxuye.com',
-      powered: ['React', 'Next.js', 'Node.js', 'Typeorm', 'Typescript'],
+      powered: ['React', 'Next.js', 'Node.js', 'Typeorm', 'Typescript']
     };
   }
   public get ENV() {
@@ -109,7 +109,7 @@ export class ConfigService {
 }
 
 const config = new ConfigService(
-  path.resolve(__dirname, '..', `${process.env.NODE_ENV}.env`),
+  path.resolve(__dirname, '..', `${process.env.NODE_ENV}.env`)
 );
 
 export default config;
