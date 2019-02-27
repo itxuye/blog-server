@@ -10,7 +10,7 @@ import { Token as TokenEntity } from '././module/auth/token.entity';
 import { User as UserEntity } from '././module/user/users.entity';
 import { Article as ArticleEntity } from '././module/articles/article.entity';
 import { Comment as CommentEntity } from '././module/comments/comment.entity';
-import { Tag as TagEntity } from '././module/tags/Tag.entity';
+import { Tag as TagEntity } from '././module/tags/tag.entity';
 
 // module
 import { UsersModule } from './module/user/users.module';

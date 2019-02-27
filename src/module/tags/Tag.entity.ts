@@ -7,7 +7,7 @@ import {
   UpdateDateColumn,
   BaseEntity
 } from 'typeorm';
-import { Article } from '../articles/article.entity';
+import { Article as ArticleEntity } from '../articles/article.entity';
 
 @Entity()
 export class Tag extends BaseEntity {
@@ -31,8 +31,8 @@ export class Tag extends BaseEntity {
   })
   description: string;
 
-  @OneToMany(type => Article, article => article.tag)
-  articles: Promise<Article[]>;
+  @OneToMany(type => ArticleEntity, article => article.tag)
+  articles: Promise<ArticleEntity[]>;
 
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;

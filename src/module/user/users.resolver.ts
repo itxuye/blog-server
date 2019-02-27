@@ -1,8 +1,11 @@
 import { ParseIntPipe, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '../auth/auth.guard';
-import { Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Mutation, Query, Resolver, Args } from '@nestjs/graphql';
 import { UsersService } from './users.service';
-
+import {
+  IUpdateUserPayload,
+  IUpdateUser
+} from './interfaces/user.interface';
 @Resolver('User')
 export class UsersResolvers {
   constructor(private readonly usersService: UsersService) {}
@@ -13,9 +16,11 @@ export class UsersResolvers {
     return await this.usersService.findOne();
   }
 
-  // @Mutation()
-  // @UseGuards(AuthGuard)
-  // public async createUser(@Args('userInput') userInput: UserPayload) {
-  //   return this.usersService.create(userInput);
-  // }
+  @Mutation()
+  @UseGuards(AuthGuard)
+  public async updateUser(
+    @Args('userInput') userInput: IUpdateUserPayload
+  ): Promise<IUpdateUser> {
+    return this.usersService.update(userInput);
+  }
 }

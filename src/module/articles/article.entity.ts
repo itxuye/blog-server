@@ -11,7 +11,7 @@ import {
 } from 'typeorm';
 import { Tag } from '../tags/tag.entity';
 import { User } from '../user/users.entity';
-import { Comment } from '../comments/Comment.entity';
+import { Comment as CommentEntity } from '../comments/comment.entity';
 
 @Entity()
 export class Article extends BaseEntity {
@@ -39,14 +39,14 @@ export class Article extends BaseEntity {
   updatedAt: Date;
 
   @Column()
-  categoryId: number;
+  tagId: number;
 
   @ManyToOne(type => Tag)
-  @JoinColumn({ name: 'TagId' })
+  @JoinColumn({ name: 'tagId' })
   tag: Promise<Tag>;
 
-  @OneToMany(type => Comment, comment => comment.article)
-  comments: Promise<Comment[]>;
+  @OneToMany(type => CommentEntity, comment => comment.article)
+  comments: Promise<CommentEntity[]>;
 
   @Column()
   userId: number;

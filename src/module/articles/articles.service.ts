@@ -3,23 +3,23 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { TagService } from '../tags/tag.service';
 import { ArticleDto } from './dto/article.dto';
-import { Article } from './article.entity';
+import { Article as ArticleEntity } from './article.entity';
 import omitBy from 'lodash/omitBy';
 import isUndefined from 'lodash/isUndefined';
 
 @Injectable()
 export class ArticlesService {
   constructor(
-    @InjectRepository(Article)
-    private readonly articleRepository: Repository<Article>,
+    @InjectRepository(ArticleEntity)
+    private readonly articleRepository: Repository<ArticleEntity>,
     private readonly tagService: TagService
   ) {}
 
-  async findOneById(id: number): Promise<Article | undefined> {
+  async findOneById(id: number): Promise<ArticleEntity | undefined> {
     return await this.articleRepository.findOne({ id });
   }
 
-  async findOneBySlug(slug: string): Promise<Article | undefined> {
+  async findOneBySlug(slug: string): Promise<ArticleEntity | undefined> {
     return await this.articleRepository.findOne({ slug });
   }
 
@@ -27,7 +27,7 @@ export class ArticlesService {
     where: object,
     skip: number = 0,
     take: number = 59999
-  ): Promise<Article[]> {
+  ): Promise<ArticleEntity[]> {
     where = omitBy(where, isUndefined);
     return await this.articleRepository.find({
       where,
@@ -39,7 +39,7 @@ export class ArticlesService {
     });
   }
 
-  async findAll(): Promise<Article[]> {
+  async findAll(): Promise<ArticleEntity[]> {
     return await this.articleRepository.find({
       order: {
         id: 'DESC'
@@ -47,7 +47,7 @@ export class ArticlesService {
     });
   }
 
-  async create(articleDto: ArticleDto): Promise<Article> {
+  async create(articleDto: ArticleDto): Promise<ArticleEntity> {
     const newArticle = await this.articleRepository.create(articleDto);
     await this.tagService.countControl(articleDto.categoryId, true);
     return this.articleRepository.save(newArticle);
@@ -70,7 +70,7 @@ export class ArticlesService {
 
   async destroy(id: number): Promise<any> {
     const articleDeleted = await this.findOneById(id);
-    await this.tagService.countControl(articleDeleted!.categoryId, false);
+    await this.tagService.countControl(articleDeleted!.tagId, false);
     await this.articleRepository.delete(id);
   }
 }

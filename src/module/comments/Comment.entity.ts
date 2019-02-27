@@ -6,9 +6,9 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   BaseEntity,
-  JoinColumn,
+  JoinColumn
 } from 'typeorm';
-import { Article } from '../articles/article.entity';
+import { Article as ArticleEntity } from '../articles/article.entity';
 
 @Entity()
 export class Comment extends BaseEntity {
@@ -18,21 +18,21 @@ export class Comment extends BaseEntity {
   name: string;
 
   @Column({
-      default: 0,
+    default: 0
   })
   userId: number;
 
   @Column({
-      default: 0,
+    default: 0
   })
   parentId: number;
 
   @Column()
   articleId: number;
 
-  @ManyToOne(type => Article)
+  @ManyToOne(type => ArticleEntity)
   @JoinColumn({ name: 'articleId' })
-  article: Promise<Article>;
+  article: Promise<ArticleEntity>;
 
   @Column()
   email: string;
@@ -47,7 +47,7 @@ export class Comment extends BaseEntity {
   ip: string;
 
   @Column({
-      default: 0,
+    default: 0
   })
   type: number; // -1: SPAM; 0: Waiting Moderation; 1: published
 

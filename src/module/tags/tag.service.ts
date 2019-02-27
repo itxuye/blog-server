@@ -2,32 +2,32 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { TagDto } from './dto/tag.dto';
-import { Tag } from './tag.entity';
+import { Tag as TagEntity } from './tag.entity';
 
 @Injectable()
 export class TagService {
   constructor(
-    @InjectRepository(Tag)
-    private readonly tagRepository: Repository<Tag>
+    @InjectRepository(TagEntity)
+    private readonly tagRepository: Repository<TagEntity>
   ) {}
 
-  async findOneById(id: number): Promise<Tag | undefined> {
+  async findOneById(id: number): Promise<TagEntity | undefined> {
     return await this.tagRepository.findOne({ id });
   }
 
-  async findOneBySlug(slug: string): Promise<Tag | undefined> {
+  async findOneBySlug(slug: string): Promise<TagEntity | undefined> {
     return await this.tagRepository.findOne({ slug });
   }
 
-  async where(condition: object): Promise<Tag[]> {
+  async where(condition: object): Promise<TagEntity[]> {
     return await this.tagRepository.find(condition);
   }
 
-  async findAll(): Promise<Tag[]> {
+  async findAll(): Promise<TagEntity[]> {
     return await this.tagRepository.find();
   }
 
-  async create(tagDto: TagDto): Promise<Tag> {
+  async create(tagDto: TagDto): Promise<TagEntity> {
     const newtag = await this.tagRepository.create(tagDto);
     return this.tagRepository.save(newtag);
   }

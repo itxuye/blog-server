@@ -3,7 +3,12 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, FindOneOptions, FindManyOptions } from 'typeorm';
 import { User as UserEntity } from './users.entity';
-import { IUser, IUserPayload } from './interfaces/user.interface';
+import {
+  IUser,
+  IUserPayload,
+  IUpdateUserPayload,
+  IUpdateUser
+} from './interfaces/user.interface';
 
 @Injectable()
 export class UsersService {
@@ -25,7 +30,7 @@ export class UsersService {
 
   async findOne(
     findOptions?: FindOneOptions<UserEntity>
-  ): Promise<IUser | undefined> {
+  ): Promise<IUpdateUser | undefined> {
     return this.usersRepository.findOne(findOptions);
   }
 
@@ -48,5 +53,20 @@ export class UsersService {
     newUser.passwordHash = await this.hashPassword(userPayload.password);
 
     return this.usersRepository.save(newUser);
+  }
+
+  async update(userPayload: IUpdateUserPayload): Promise<IUpdateUser> {
+    const user = await this.findOne({
+      where: { username: userPayload.username }
+    });
+
+    if (!user) {
+      throw new Error('当前用户不存在');
+    }
+    user.desc = userPayload.desc;
+    user.email = userPayload.email;
+    user.gravatar = userPayload.gravatar;
+    //更新操作
+    return this.usersRepository.save(user);
   }
 }

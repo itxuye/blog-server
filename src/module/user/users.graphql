@@ -2,10 +2,6 @@ type Query {
   user: User
 }
 
-# type Mutation {
-#   createUser(userInput: UserInput!): User
-# }
-
 type Subscription {
   newMessage: String
 }
@@ -13,10 +9,18 @@ type Subscription {
 type User {
   id: ID
   username: String
+  desc: String
+  email: String
+  gravatar: String
 }
 
-# input UserInput {
-#   name: String
-#   email: String
-#   password: String
-# }
+input UserInput {
+  username: String
+  desc: String
+  email: String
+  gravatar: String
+}
+
+type Mutation {
+  updateUser(userInput: UserInput!): User
+}
