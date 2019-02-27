@@ -8,8 +8,8 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class Token extends BaseEntity{
-  @PrimaryGeneratedColumn()
+export class Token extends BaseEntity {
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column({ type: 'varchar' })

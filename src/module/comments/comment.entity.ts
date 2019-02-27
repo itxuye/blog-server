@@ -12,7 +12,8 @@ import { Article as ArticleEntity } from '../articles/article.entity';
 
 @Entity()
 export class Comment extends BaseEntity {
-  @PrimaryGeneratedColumn() id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column()
   name: string;

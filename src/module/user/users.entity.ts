@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 @Entity()
 export class User extends BaseEntity {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column({ type: 'varchar', length: 500 })

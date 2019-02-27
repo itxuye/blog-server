@@ -11,7 +11,8 @@ import { Article as ArticleEntity } from '../articles/article.entity';
 
 @Entity()
 export class Tag extends BaseEntity {
-  @PrimaryGeneratedColumn() id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column()
   name: string;
