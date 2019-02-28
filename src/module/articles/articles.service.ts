@@ -15,7 +15,7 @@ export class ArticlesService {
     private readonly tagService: TagService
   ) {}
 
-  async findOneById(id: number): Promise<ArticleEntity | undefined> {
+  async findOneById(id: string): Promise<ArticleEntity | undefined> {
     return await this.articleRepository.findOne({ id });
   }
 
@@ -57,7 +57,7 @@ export class ArticlesService {
     await this.articleRepository.update(id, articleDto);
   }
 
-  async countControl(id: number, increment: boolean): Promise<any> {
+  async countControl(id: string, increment: boolean): Promise<any> {
     // 统计文章总量
     const currentArticle = await this.findOneById(id);
     if (increment) {
@@ -68,7 +68,7 @@ export class ArticlesService {
     return await currentArticle!.save();
   }
 
-  async destroy(id: number): Promise<any> {
+  async destroy(id: string): Promise<any> {
     const articleDeleted = await this.findOneById(id);
     await this.tagService.countControl(articleDeleted!.tagId, false);
     await this.articleRepository.delete(id);

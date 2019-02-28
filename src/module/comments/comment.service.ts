@@ -12,11 +12,11 @@ export class CommentsService {
     private readonly commentRepository: Repository<CommentEntity>
   ) {}
 
-  async findOneById(id: number): Promise<CommentEntity | undefined> {
+  async findOneById(id: string): Promise<CommentEntity | undefined> {
     return await this.commentRepository.findOne({ id });
   }
 
-  async findSomeByArticleId(id: number): Promise<CommentEntity[]> {
+  async findSomeByArticleId(id: string): Promise<CommentEntity[]> {
     return await this.where({ articleId: id });
   }
 

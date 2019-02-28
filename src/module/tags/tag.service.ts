@@ -11,7 +11,7 @@ export class TagService {
     private readonly tagRepository: Repository<TagEntity>
   ) {}
 
-  async findOneById(id: number): Promise<TagEntity | undefined> {
+  async findOneById(id: string): Promise<TagEntity | undefined> {
     return await this.tagRepository.findOne({ id });
   }
 
@@ -36,7 +36,7 @@ export class TagService {
     await this.tagRepository.update(id, tagDto);
   }
 
-  async countControl(id: number, increment: boolean): Promise<any> {
+  async countControl(id: string, increment: boolean): Promise<any> {
     // 统计文章总量
     const currentTag = await this.findOneById(id);
     if (increment) {

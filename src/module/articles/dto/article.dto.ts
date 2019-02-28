@@ -10,7 +10,7 @@ export class ArticleDto {
   @IsString()
   readonly content: string;
 
-  readonly categoryId: number;
+  readonly categoryId: string;
 
   userId: number;
 

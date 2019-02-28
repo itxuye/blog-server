@@ -40,7 +40,7 @@ export class Article extends BaseEntity {
   updatedAt: Date;
 
   @Column()
-  tagId: number;
+  tagId: string;
 
   @ManyToOne(type => Tag)
   @JoinColumn({ name: 'tagId' })

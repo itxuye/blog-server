@@ -17,7 +17,7 @@ export class AuthResolvers {
     });
 
     if (!user) {
-      throw new Error('User not found');
+      throw new Error('登录失败，用户不存在');
     }
 
     const isValidPassword: boolean = await this.usersService.validatePassword(
@@ -26,7 +26,7 @@ export class AuthResolvers {
     );
 
     if (!isValidPassword) {
-      return new Error('Password invalid');
+      return new Error('登录失败，密码错误');
     }
 
     return await this.authService.createToken(user.id);
