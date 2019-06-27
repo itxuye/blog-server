@@ -60,7 +60,9 @@ import { TagModule } from './module/tags/tag.module';
           }
           return {
             userData: req
-              ? tokenUtil.parseAuthToken(req.headers.authorization)
+              ? tokenUtil.parseAuthToken(
+                  req.headers && req.headers.authorization
+                )
               : null
           };
         }

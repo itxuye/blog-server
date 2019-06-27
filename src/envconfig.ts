@@ -100,7 +100,7 @@ export class ConfigService {
       version: '1.0.0',
       author: 'itxuye',
       site: 'https://itxuye.com',
-      powered: ['React', 'Next.js', 'Node.js', 'Typeorm', 'Typescript']
+      powered: ['React', 'Next.js', 'Node.js', 'TypeOrm', 'Typescript']
     };
   }
   public get ENV() {

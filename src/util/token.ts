@@ -1,7 +1,7 @@
 import config from './../envconfig';
 import * as jwt from 'jsonwebtoken';
 
-const parseAuthToken = authorization => {
+const parseAuthToken = (authorization: string) => {
   if (!authorization) {
     return null;
   }
