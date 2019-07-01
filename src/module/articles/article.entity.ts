@@ -44,15 +44,15 @@ export class Article extends BaseEntity {
 
   @ManyToOne(type => Tag)
   @JoinColumn({ name: 'tagId' })
-  tag: Promise<Tag>;
+  tag: Tag;
 
   @OneToMany(type => CommentEntity, comment => comment.article)
-  comments: Promise<CommentEntity[]>;
+  comments: CommentEntity[];
 
   @Column()
-  userId: number;
+  userId: string;
 
   @ManyToOne(type => User)
   @JoinColumn({ name: 'userId' })
-  user: Promise<User>;
+  user: User;
 }

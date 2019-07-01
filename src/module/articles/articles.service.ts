@@ -68,7 +68,7 @@ export class ArticlesService {
     return await currentArticle!.save();
   }
 
-  async destroy(id: string): Promise<any> {
+  async deleteById(id: string): Promise<any> {
     const articleDeleted = await this.findOneById(id);
     await this.tagService.countControl(articleDeleted!.tagId, false);
     await this.articleRepository.delete(id);

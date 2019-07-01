@@ -1,0 +1,38 @@
+type Query {
+  tags: [Tag]
+}
+input TagInfoInput {
+  name: String
+  slug: String
+  description: String
+}
+
+type Article {
+  id: String
+  title: String
+  slug: String
+  content: String
+  status: Int
+  commentCount: Int
+  tagId: String
+  tag: Tag
+  comments: String
+  userId: String
+  user: User
+}
+
+type User {
+  id: ID
+  username: String
+  desc: String
+  email: String
+  gravatar: String
+}
+
+type Tag {
+  id: String
+  name: String
+  slug: String
+  description: String
+  articles: [Article]
+}

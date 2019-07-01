@@ -33,7 +33,7 @@ export class Tag extends BaseEntity {
   description: string;
 
   @OneToMany(type => ArticleEntity, article => article.tag)
-  articles: Promise<ArticleEntity[]>;
+  articles: ArticleEntity[];
 
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;
