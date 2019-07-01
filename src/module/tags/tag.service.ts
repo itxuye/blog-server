@@ -32,7 +32,7 @@ export class TagService {
     return this.tagRepository.save(newtag);
   }
 
-  async update(id: number, tagDto: TagDto): Promise<any> {
+  async update(id: string, tagDto: TagDto): Promise<any> {
     await this.tagRepository.update(id, tagDto);
   }
 

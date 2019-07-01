@@ -37,7 +37,7 @@ export class TagResolver {
   @Mutation()
   @UseGuards(AuthGuard)
   async update(
-    @Args() id: ObjectID,
+    @Args() id: string,
     @Args() categoryDto: TagDto
   ): Promise<Tag> {
     return await this.categoriesService.update(id, categoryDto);
@@ -48,15 +48,15 @@ export class TagResolver {
     return await this.categoriesService.findOneById(id);
   }
 
-  @Delete(':id')
-  async destory(@Param('id') id: ObjectID) {
+  @Mutation()
+  async destory(@Args('id') id: string) {
     const articles = await this.articleRepository.find({ categoryId: id });
     if (articles.length === 0) {
       return await this.categoriesService.destroy(id);
     }
     throw new HttpException(
       '分类目录内仍有文章，请删除后再试',
-      HttpStatus.FORBIDDEN
+     400
     );
   }
 }

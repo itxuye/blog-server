@@ -53,7 +53,7 @@ export class ArticlesService {
     return this.articleRepository.save(newArticle);
   }
 
-  async update(id: number, articleDto: ArticleDto): Promise<any> {
+  async update(id: string, articleDto: ArticleDto): Promise<any> {
     await this.articleRepository.update(id, articleDto);
   }
 
