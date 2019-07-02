@@ -1,58 +1,58 @@
+import { Category } from '../category/category.entity';
+import { Tag } from '../tags/tag.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  OneToMany,
   ManyToOne,
+  ManyToMany,
+  JoinTable,
   CreateDateColumn,
-  UpdateDateColumn,
-  JoinColumn,
-  BaseEntity
+  UpdateDateColumn
 } from 'typeorm';
-import { Tag } from '../tags/tag.entity';
-import { User } from '../user/users.entity';
-import { Comment as CommentEntity } from '../comments/comment.entity';
 
 @Entity()
-export class Article extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
-
-  @Column() title: string;
+export class Article {
+  @PrimaryGeneratedColumn() id: number;
 
   @Column()
-  slug: string;
+  title: string;
 
-  @Column('text') content: string;
+  @Column()
+  desc: string;
+
+  @Column({ type: 'longtext' }) // 文本类型
+  content: string;
+
+  @Column({
+    default: () => 0
+  })
+  views: number;
 
   // -1：已删除 0: 草稿; 1: 待审核 2: 已发布
   @Column({ type: 'tinyint' }) status: number;
 
-  @Column({
-    default: 0
+  @ManyToOne(type => Category, category => category.articles, {
+    cascade: true,
+    onDelete: 'CASCADE',
+    primary: true
   })
-  commentCount: number;
+  category: Category;
 
-  @CreateDateColumn({ type: 'timestamp' })
-  createdAt: Date;
+  @ManyToMany(type => Tag, tag => tag.articles)
+  @JoinTable()
+  tag: Tag[];
 
-  @UpdateDateColumn({ type: 'timestamp' })
-  updatedAt: Date;
-
-  @Column()
-  tagId: string;
-
-  @ManyToOne(type => Tag)
-  @JoinColumn({ name: 'tagId' })
-  tag: Tag;
-
-  @OneToMany(type => CommentEntity, comment => comment.article)
-  comments: CommentEntity[];
-
-  @Column()
-  userId: string;
-
-  @ManyToOne(type => User)
-  @JoinColumn({ name: 'userId' })
-  user: User;
+  @CreateDateColumn({
+    nullable: false,
+    name: 'createAt',
+    comment: '创建时间'
+  })
+  createAt: Date | string;
+  @UpdateDateColumn({
+    nullable: false,
+    name: 'updateAt',
+    comment: '更新时间'
+  })
+  updateAt: Date | string;
 }

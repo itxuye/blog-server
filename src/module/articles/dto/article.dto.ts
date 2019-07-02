@@ -1,21 +1,30 @@
-import { IsString, IsInt, Min, Max } from 'class-validator';
-
-export class ArticleDto {
+import {
+  IsString,
+  IsNotEmpty,
+  IsNumber,
+} from 'class-validator';
+export class CreateArticleDto {
   @IsString()
+  @IsNotEmpty()
   readonly title: string;
 
   @IsString()
-  readonly slug: string;
+  @IsNotEmpty()
+  readonly desc: string;
+
+  @IsNumber()
+  @IsNotEmpty()
+  readonly categoryId: number;
+
+  @IsNumber()
+  @IsNotEmpty()
+  readonly tagId: number[];
 
   @IsString()
+  @IsNotEmpty()
   readonly content: string;
 
-  readonly categoryId: string;
-
-  userId: string;
-
-  @IsInt()
-  @Min(-1)
-  @Max(2) // -1：已删除 0: 草稿; 1: 待审核 2: 已发布
-  readonly status: number;
+  @IsNumber()
+  @IsNotEmpty()
+  readonly userId: string;
 }

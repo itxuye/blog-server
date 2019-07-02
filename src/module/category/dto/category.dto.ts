@@ -1,16 +1,10 @@
 import {
   IsNotEmpty,
-  IsNumber,
   IsString,
   NotEquals,
   Max
 } from 'class-validator';
-export class TagDto {
-  readonly id: number;
-  readonly name: string;
-  readonly articles: any[];
-}
-export class CreateTagDto {
+export class CreateCategoryDto {
   @IsNotEmpty()
   @NotEquals('')
   @IsString()

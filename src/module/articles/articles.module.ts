@@ -1,13 +1,13 @@
+import { Article } from './article.entity';
+import { ArticleService } from './articles.service';
+import { TagModule } from '../tags/tag.module';
+import { CategoryModule } from '../category/category.module';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ArticlesService } from './articles.service';
-import { Article as ArticleEntity } from './article.entity';
-import { UsersModule } from '../user/users.module';
-import { TagModule } from '../tags/tag.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([ArticleEntity]), UsersModule, TagModule],
-  providers: [ArticlesService],
-  exports: [ArticlesService]
+  imports: [TagModule, CategoryModule, TypeOrmModule.forFeature([Article])],
+  providers: [ArticleService],
+  exports: [ArticleService]
 })
 export class ArticlesModule {}

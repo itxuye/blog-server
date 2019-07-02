@@ -1,4 +1,4 @@
-import config from './../envconfig';
+import config from '../envconfig';
 import * as jwt from 'jsonwebtoken';
 
 const parseAuthToken = (authorization: string) => {

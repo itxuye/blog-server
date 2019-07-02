@@ -12,8 +12,7 @@ import { Article as ArticleEntity } from '../articles/article.entity';
 
 @Entity()
 export class Comment extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn() id: string;
 
   @Column()
   name: string;
@@ -31,9 +30,9 @@ export class Comment extends BaseEntity {
   @Column()
   articleId: number;
 
-  @ManyToOne(type => ArticleEntity)
-  @JoinColumn({ name: 'articleId' })
-  article: ArticleEntity;
+  // @ManyToOne(type => ArticleEntity)
+  // @JoinColumn({ name: 'articalColumn' })
+  // article: ArticleEntity;
 
   @Column()
   email: string;

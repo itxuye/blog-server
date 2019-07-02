@@ -1,23 +1,23 @@
-import { Article } from '../articles/article.entity';
 import {
   Entity,
-  PrimaryGeneratedColumn,
   Column,
-  ManyToMany,
+  PrimaryGeneratedColumn,
+  OneToMany,
   ManyToOne,
   JoinTable,
   CreateDateColumn,
   UpdateDateColumn
 } from 'typeorm';
+import { Article } from '../articles/article.entity';
 
 @Entity()
-export class Tag {
+export class Category {
   @PrimaryGeneratedColumn() id: number;
 
   @Column()
   name: string;
 
-  @ManyToMany(type => Article, article => article.tag)
+  @OneToMany(type => Article, article => article.category)
   articles: Article[];
 
   @CreateDateColumn({

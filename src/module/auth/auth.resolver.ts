@@ -1,4 +1,4 @@
-import { Inject, forwardRef } from '@nestjs/common';
+import { Inject, forwardRef, HttpException } from '@nestjs/common';
 import { Mutation, Query, Resolver, Args } from '@nestjs/graphql';
 import { AuthService } from './auth.service';
 import { UsersService } from '../user/users.service';
@@ -17,7 +17,7 @@ export class AuthResolvers {
     });
 
     if (!user) {
-      throw new Error('登录失败，用户不存在');
+      throw new HttpException('登录失败，用户不存在', 401);
     }
 
     const isValidPassword: boolean = await this.usersService.validatePassword(
@@ -26,7 +26,7 @@ export class AuthResolvers {
     );
 
     if (!isValidPassword) {
-      return new Error('登录失败，密码错误');
+      throw new HttpException('登录失败，密码错误', 401);
     }
 
     return await this.authService.createToken(user.id);

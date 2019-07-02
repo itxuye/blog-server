@@ -4,7 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { GraphQLModule } from '@nestjs/graphql';
 
 import config from './envconfig';
-import tokenUtil from './util/token';
+import tokenUtil from './utils/token';
 // Entity
 import { Token as TokenEntity } from '././module/auth/token.entity';
 import { User as UserEntity } from '././module/user/users.entity';
