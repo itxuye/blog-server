@@ -1,15 +1,23 @@
 type Query {
-  findAllTags: [Tag]
-  findOneTag: Tag
+  getAllArticles: Articles
+  getArticleDetail: Article
+}
+type Articles {
+  list: [Article]
+  count: Int
 }
 type Mutation {
-  createTag(tagInfoInput: TagInfoInput!): Tag
-  updateTag(id: String!, tagInfoInput: TagInfoInput!): Tag
-  deleteTag(id: String!): Tag
+  addArticle(articleInfoInput: ArticleInfoInput!): Article
+  deleteArticle(id: Int!): Article
+  incrementViews(id: Int!): Article
 }
 
-input TagInfoInput {
-  name: String
+input ArticleInfoInput {
+  title: String
+  desc: String
+  categoryId: String
+  tagId: String
+  content: String
 }
 
 type Article {
@@ -24,12 +32,10 @@ type Article {
   category: Category
 }
 type Tag {
-  id: String
+  id: Int
   name: String
-  articles: [Article]
 }
 type Category {
   id: Int
   name: String
-  articles: [Article]
 }

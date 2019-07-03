@@ -1,14 +1,16 @@
-import { Article } from './article.entity';
-import { CategoryService } from '../category/category.service';
-import { TagService } from '../tags/tag.service';
 import { getRepository, Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateArticleDto } from './dto/article.dto';
+import * as stream from 'stream';
+
+import { Article as ArticleEntity } from './article.entity';
+import { CategoryService } from '../category/category.service';
+import { TagService } from '../tags/tag.service';
+
+import { CreateArticleDto, FindArticles } from './dto/article.dto';
 import { qiniuUpload } from '../../utils/upload';
 import { getFileExtensions } from '../../utils/common';
 import { md5Sign } from '../../utils/stringUtil';
-import * as stream from 'stream';
 
 export interface ILooseObject {
   [key: string]: any;
@@ -16,8 +18,8 @@ export interface ILooseObject {
 @Injectable()
 export class ArticleService {
   constructor(
-    @InjectRepository(Article)
-    private readonly articleRepository: Repository<Article>,
+    @InjectRepository(ArticleEntity)
+    private readonly articleRepository: Repository<ArticleEntity>,
     private readonly categoryService: CategoryService,
     private readonly tagService: TagService
   ) {}
@@ -25,11 +27,14 @@ export class ArticleService {
    * @desc 获取文章列表
    * @param options query options
    */
-  async find(options): Promise<any> {
-    const pagesize = Number(options.pagesize) || 10;
-    const page = Number(options.page) * pagesize || 0;
+  async find(
+    options: FindArticles
+  ): Promise<{ list: ArticleEntity[]; count: number }> {
+    const pageSize = Number(options.pageSize) || 10;
+    const page = Number(options.page) * pageSize || 0;
     let param = {};
     let term = '';
+    // 搜索参数
     if (options.search) {
       term =
         'articles.title Like :title OR articles.desc Like :desc OR articles.content Like :content';
@@ -39,16 +44,16 @@ export class ArticleService {
         content: `%${options.search}%`
       };
     }
-    const [list = [], count = 0] = await getRepository(Article)
+    const [list = [], count = 0] = await getRepository(ArticleEntity)
       .createQueryBuilder('article')
-      .leftJoin('article.user', 'u')
       .select([
         'article.id',
         'article.desc',
         'article.createAt',
         'article.title',
         'article.views',
-        'u.id'
+        'article.status',
+        'article.tags'
       ])
       .leftJoinAndSelect('article.category', 'category')
       .leftJoinAndSelect('article.tag', 'tag')
@@ -57,7 +62,7 @@ export class ArticleService {
         'article.createAt': 'DESC'
       })
       .offset(page)
-      .limit(pagesize)
+      .limit(pageSize)
       .getManyAndCount();
 
     return { list, count };
@@ -66,36 +71,40 @@ export class ArticleService {
    * @desc add new articles
    * @param options add  articles
    */
-  async add(options: CreateArticleDto): Promise<any> {
-    const article = this.articleRepository.create();
+  async add(options: CreateArticleDto): Promise<ArticleEntity> {
+    const article = this.articleRepository.create(options);
     const cate = await this.categoryService.find(options.categoryId);
     const tag = await this.tagService.findIds(options.tagId);
     const option = {
       stripIgnoreTagBody: ['script'] // 过滤script标签
     };
     // article.content = xss(options.content, option);
-    article.content = options.content;
-    article.title = options.title;
-    article.desc = options.desc;
-    article.category = cate;
-    article.tag = tag;
+    // article.content = options.content;
+    // article.title = options.title;
+    // article.desc = options.desc;
+    // article.category = cate;
+    // article.tag = tag;
     try {
-      await this.articleRepository.save(article);
+      return await this.articleRepository.save(article);
     } catch (err) {
       throw new Error(err);
     }
+  }
+
+  async deleteArticle(id: number): Promise<any> {
+    return await this.articleRepository.delete(id);
   }
   /**
    * @desc increment views
    * @param id
    */
-  async increment(id: object): Promise<any> {
-    await this.articleRepository.increment(id, 'views', 1);
+  async incrementViews(id: number): Promise<any> {
+    await this.articleRepository.increment({ id }, 'views', 1);
   }
   /**
    * @desc 获取详情
    */
-  async getDetail(id: number): Promise<any> {
+  async getDetail(id: number): Promise<ArticleEntity> {
     try {
       return await this.articleRepository.findOneOrFail(id);
     } catch (err) {

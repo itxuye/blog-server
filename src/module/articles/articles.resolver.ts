@@ -1,22 +1,30 @@
-import { HttpException, HttpStatus, UseGuards } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  UseGuards,
+  UploadedFile
+} from '@nestjs/common';
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 
-import { TagService } from './tag.service';
-import { CreateTagDto } from './dto/tag.dto';
-import { Tag } from './tag.entity';
+import { ArticleService } from './articles.service';
+import { CreateArticleDto, FindArticles } from './dto/article.dto';
+import { Article as ArticleEntity } from './article.entity';
 import { AuthGuard } from '../auth/auth.guard';
 
-@Resolver('Tag')
-export class TagResolver {
-  constructor(
-    private readonly articleService: ArticleService,
-  ) {}
+@Resolver('Article')
+export class ArticleResolver {
+  constructor(private readonly articleService: ArticleService) {}
   /**
    * @desc get all articles
    * @param options
    */
-  @Get('list')
-  async getAll(@Query() options): Promise<any> {
+  @Query()
+  async getAllArticles(
+    @Args('') options: FindArticles
+  ): Promise<{
+    list: ArticleEntity[];
+    count: number;
+  }> {
     try {
       return await this.articleService.find(options);
     } catch (error) {
@@ -27,8 +35,9 @@ export class TagResolver {
    * @desc add new articles
    * @param options
    */
-  @Post('add')
-  async add(@Body() options: CreateArticleDto): Promise<any> {
+  @Mutation()
+  @UseGuards(AuthGuard)
+  async addArticle(@Args('articleInfoInput') options: CreateArticleDto): Promise<ArticleEntity> {
     try {
       return await this.articleService.add(options);
     } catch (error) {
@@ -37,30 +46,45 @@ export class TagResolver {
   }
   /**
    * @description 获取文章详情
-   * @param options
+   * @param id
    */
-  @Get('detail')
-  async getDetail(@Query() options): Promise<any> {
+  @Query()
+  async getArticleDetail(@Args('id') id: number): Promise<ArticleEntity> {
     try {
-      await this.articleService.increment(options);
-      return this.articleService.getDetail(options);
+      await this.articleService.incrementViews(id);
+      return this.articleService.getDetail(id);
     } catch (err) {
       throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
     }
   }
 
-  @Post('up')
-  async increment(@Body() options: object): Promise<any> {
+  @Mutation()
+  async incrementViews(@Args('id') id: number): Promise<any> {
     try {
-      return await this.articleService.increment(options);
+      return await this.articleService.incrementViews(id);
     } catch (error) {
       throw new HttpException({ error }, HttpStatus.BAD_REQUEST);
     }
   }
 
-  @Post('img-upload')
-  @UseInterceptors(FileInterceptor('file')) // upload formData key: value中的key
-  async uploadFile(@UploadedFile() file) {
-    return await this.articleService.upload(file);
+  // @Mutation()
+  // @UseGuards(AuthGuard) // upload formData key: value中的key
+  // async uploadFile(@UploadedFile() file) {
+  //   try {
+  //     return await this.articleService.upload(file);
+  //   } catch (error) {
+  //     throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+  //   }
+  // }
+
+  @Mutation()
+  @UseGuards(AuthGuard)
+  async deleteArticle(@Args('id') id: number): Promise<any> {
+    try {
+      await this.articleService.deleteArticle(id);
+      return null;
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 }

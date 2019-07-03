@@ -26,6 +26,7 @@ export class Category {
     comment: '创建时间'
   })
   createAt: Date | string;
+
   @UpdateDateColumn({
     nullable: false,
     name: 'updateAt',

@@ -12,7 +12,7 @@ import { Article as ArticleEntity } from '../articles/article.entity';
 
 @Entity()
 export class Comment extends BaseEntity {
-  @PrimaryGeneratedColumn() id: string;
+  @PrimaryGeneratedColumn() id: number;
 
   @Column()
   name: string;

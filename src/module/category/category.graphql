@@ -1,0 +1,32 @@
+type Query {
+  getAllCategory(options: FindCategotyOptions): Categorys
+}
+input FindCategotyOptions {
+  pageSize: Int
+  page: Int
+}
+type Categorys {
+  list: [Category]
+  count: Int
+}
+type Mutation {
+  addCategory(categoryInfoInput: CategoryInfoInput!): Category
+  deleteCategory(id: Int!): Category
+}
+
+input CategoryInfoInput {
+  name: String!
+}
+
+type Article {
+  id: Int
+  title: String
+  desc: String
+  status: Int
+  views: Int
+  tagId: String
+}
+type Category {
+  id: Int
+  name: String
+}

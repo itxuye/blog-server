@@ -30,7 +30,7 @@ export class Article {
   views: number;
 
   // -1：已删除 0: 草稿; 1: 待审核 2: 已发布
-  @Column({ type: 'tinyint' }) status: number;
+  @Column() status: number;
 
   @ManyToOne(type => Category, category => category.articles, {
     cascade: true,
@@ -41,7 +41,7 @@ export class Article {
 
   @ManyToMany(type => Tag, tag => tag.articles)
   @JoinTable()
-  tag: Tag[];
+  tags: Tag[];
 
   @CreateDateColumn({
     nullable: false,

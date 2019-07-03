@@ -1,11 +1,15 @@
 type Query {
-  findAllTags: [Tag]
+  findAllTags: Tags
   findOneTag: Tag
+}
+type Tags {
+  list: [Tag]
+  count: Int
 }
 type Mutation {
   createTag(tagInfoInput: TagInfoInput!): Tag
   updateTag(id: String!, tagInfoInput: TagInfoInput!): Tag
-  deleteTag(id: String!): Tag
+  deleteTag(id: Int!): Tag
 }
 
 input TagInfoInput {
@@ -20,16 +24,12 @@ type Article {
   status: Int
   views: Int
   tagId: String
-  tag: [Tag]
-  category: Category
 }
 type Tag {
-  id: String
+  id: Int
   name: String
-  articles: [Article]
 }
 type Category {
   id: Int
   name: String
-  articles: [Article]
 }

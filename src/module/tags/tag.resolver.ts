@@ -1,9 +1,8 @@
 import { HttpException, HttpStatus, UseGuards } from '@nestjs/common';
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
-
+import { Tag as TagEntity } from './tag.entity';
 import { TagService } from './tag.service';
 import { CreateTagDto } from './dto/tag.dto';
-import { Tag } from './tag.entity';
 import { AuthGuard } from '../auth/auth.guard';
 
 @Resolver('Tag')
@@ -14,7 +13,10 @@ export class TagResolver {
    * @param options
    */
   @Query()
-  async findAllTags(): Promise<Tag[]> {
+  async findAllTags(): Promise<{
+    list: TagEntity[];
+    count: number;
+  }> {
     try {
       return await this.tagService.findTag();
     } catch (error) {
@@ -26,12 +28,14 @@ export class TagResolver {
    */
   @Mutation()
   @UseGuards(AuthGuard)
-  async createTag(@Args() tagDto: CreateTagDto): Promise<Tag> {
+  async createTag(
+    @Args('tagInfoInput') tagInfoInput: CreateTagDto
+  ): Promise<TagEntity> {
     const tagExisted = await this.tagService.where({
-      name: tagDto.name
+      name: tagInfoInput.name
     });
     if (tagExisted.length === 0) {
-      return await this.tagService.add(tagDto);
+      return await this.tagService.add(tagInfoInput);
     }
 
     throw new HttpException('已存在相同信息分类', HttpStatus.BAD_REQUEST);
@@ -42,7 +46,7 @@ export class TagResolver {
    */
   @Mutation()
   @UseGuards(AuthGuard)
-  async deleteTag(@Args() id: number): Promise<any> {
+  async deleteTag(@Args('id') id: number): Promise<any> {
     try {
       await this.tagService.deleteTag(id);
       return null;

@@ -12,6 +12,7 @@ export class AuthResolvers {
 
   @Query()
   async login(@Args('username') username, @Args('password') password) {
+    console.log(username, password);
     const user = await this.usersService.findOne({
       where: { username }
     });

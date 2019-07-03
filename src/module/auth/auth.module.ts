@@ -8,6 +8,6 @@ import { Token } from './token.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Token]), forwardRef(() => UsersModule)],
-  providers: [AuthService, AuthResolvers],
+  providers: [AuthService, AuthResolvers]
 })
 export class AuthModule {}

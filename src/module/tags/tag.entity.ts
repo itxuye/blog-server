@@ -4,20 +4,18 @@ import {
   PrimaryGeneratedColumn,
   Column,
   ManyToMany,
-  ManyToOne,
-  JoinTable,
   CreateDateColumn,
   UpdateDateColumn
 } from 'typeorm';
 
 @Entity()
 export class Tag {
-  @PrimaryGeneratedColumn() id: number;
+  @PrimaryGeneratedColumn({ type: 'int' }) id: number;
 
   @Column()
   name: string;
 
-  @ManyToMany(type => Article, article => article.tag)
+  @ManyToMany(type => Article, article => article.tags)
   articles: Article[];
 
   @CreateDateColumn({
@@ -26,6 +24,7 @@ export class Tag {
     comment: '创建时间'
   })
   createAt: Date | string;
+
   @UpdateDateColumn({
     nullable: false,
     name: 'updateAt',

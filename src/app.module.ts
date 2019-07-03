@@ -11,6 +11,7 @@ import { User as UserEntity } from '././module/user/users.entity';
 import { Article as ArticleEntity } from '././module/articles/article.entity';
 import { Comment as CommentEntity } from './module/comments/comment.entity';
 import { Tag as TagEntity } from './module/tags/tag.entity';
+import { Category as CategoryEntity } from './module/category/category.entity';
 
 // module
 import { UsersModule } from './module/user/users.module';
@@ -19,6 +20,7 @@ import { ArticlesModule } from './module/articles/articles.module';
 import { CommentsModule } from './module/comments/comments.module';
 import { BlogLoggerModule } from './module/logger/logger.module';
 import { TagModule } from './module/tags/tag.module';
+import { CategoryModule } from './module/category/category.module';
 
 @Module({
   imports: [
@@ -28,6 +30,7 @@ import { TagModule } from './module/tags/tag.module';
     CommentsModule,
     BlogLoggerModule,
     TagModule,
+    CategoryModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
@@ -40,7 +43,8 @@ import { TagModule } from './module/tags/tag.module';
         UserEntity,
         ArticleEntity,
         CommentEntity,
-        TagEntity
+        TagEntity,
+        CategoryEntity
       ],
       synchronize: true
     }),

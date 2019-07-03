@@ -1,8 +1,4 @@
-import {
-  IsString,
-  IsNotEmpty,
-  IsNumber,
-} from 'class-validator';
+import { IsString, IsNotEmpty, IsNumber } from 'class-validator';
 export class CreateArticleDto {
   @IsString()
   @IsNotEmpty()
@@ -23,8 +19,13 @@ export class CreateArticleDto {
   @IsString()
   @IsNotEmpty()
   readonly content: string;
+}
 
-  @IsNumber()
-  @IsNotEmpty()
-  readonly userId: string;
+export class FindArticles {
+  @IsString()
+  readonly pageSize?: string;
+  @IsString()
+  readonly page?: string;
+  @IsString()
+  readonly search?: string;
 }
