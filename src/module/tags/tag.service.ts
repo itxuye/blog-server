@@ -34,6 +34,7 @@ export class TagService {
    * @param options
    */
   async findIds(options: number[]): Promise<TagEntity[]> {
+    console.log(options)
     return await this.tagRepository.findByIds(options);
   }
   /**

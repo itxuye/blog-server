@@ -14,7 +14,7 @@ export class CreateArticleDto {
 
   @IsNumber()
   @IsNotEmpty()
-  readonly tagId: number[];
+  readonly tagsId: number[];
 
   @IsString()
   @IsNotEmpty()
@@ -22,10 +22,10 @@ export class CreateArticleDto {
 }
 
 export class FindArticles {
-  @IsString()
-  readonly pageSize?: string;
-  @IsString()
-  readonly page?: string;
+  @IsNumber()
+  readonly pageSize?: number;
+  @IsNumber()
+  readonly page?: number;
   @IsString()
   readonly search?: string;
 }

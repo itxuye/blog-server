@@ -1,6 +1,10 @@
 type Query {
-  getAllArticles: Articles
+  getAllArticles(options: FindArticleOptions): Articles
   getArticleDetail: Article
+}
+input FindArticleOptions {
+  pageSize: Int
+  page: Int
 }
 type Articles {
   list: [Article]
@@ -15,8 +19,8 @@ type Mutation {
 input ArticleInfoInput {
   title: String
   desc: String
-  categoryId: String
-  tagId: String
+  categoryId: Int
+  tagsId: [Int]
   content: String
 }
 
@@ -27,8 +31,7 @@ type Article {
   content: String
   status: Int
   views: Int
-  tagId: String
-  tag: [Tag]
+  tags: [Tag]
   category: Category
 }
 type Tag {

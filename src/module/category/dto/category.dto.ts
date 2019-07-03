@@ -1,4 +1,10 @@
-import { IsNotEmpty, IsString, NotEquals, Max } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsString,
+  NotEquals,
+  Max,
+  IsNumber
+} from 'class-validator';
 export class CreateCategory {
   @IsNotEmpty()
   @NotEquals('')
@@ -8,8 +14,8 @@ export class CreateCategory {
 }
 
 export class FindCategory {
-  @IsString()
-  readonly pageSize?: string;
-  @IsString()
-  readonly page?: string;
+  @IsNumber()
+  readonly pageSize?: number;
+  @IsNumber()
+  readonly page?: number;
 }

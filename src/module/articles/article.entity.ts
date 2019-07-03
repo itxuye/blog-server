@@ -30,7 +30,7 @@ export class Article {
   views: number;
 
   // -1：已删除 0: 草稿; 1: 待审核 2: 已发布
-  @Column() status: number;
+  @Column({ type: 'tinyint', default: 1 }) status: number;
 
   @ManyToOne(type => Category, category => category.articles, {
     cascade: true,

@@ -39,6 +39,7 @@ export class ArticleResolver {
   @UseGuards(AuthGuard)
   async addArticle(@Args('articleInfoInput') options: CreateArticleDto): Promise<ArticleEntity> {
     try {
+      console.log(options);
       return await this.articleService.add(options);
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);

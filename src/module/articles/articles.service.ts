@@ -56,7 +56,7 @@ export class ArticleService {
         'article.tags'
       ])
       .leftJoinAndSelect('article.category', 'category')
-      .leftJoinAndSelect('article.tag', 'tag')
+      .leftJoinAndSelect('article.tags', 'tags')
       .where(term, param)
       .orderBy({
         'article.createAt': 'DESC'
@@ -73,8 +73,8 @@ export class ArticleService {
    */
   async add(options: CreateArticleDto): Promise<ArticleEntity> {
     const article = this.articleRepository.create(options);
-    const cate = await this.categoryService.find(options.categoryId);
-    const tag = await this.tagService.findIds(options.tagId);
+    const category = await this.categoryService.find(options.categoryId);
+    const tags = await this.tagService.findIds(options.tagsId);
     const option = {
       stripIgnoreTagBody: ['script'] // 过滤script标签
     };
@@ -82,8 +82,8 @@ export class ArticleService {
     // article.content = options.content;
     // article.title = options.title;
     // article.desc = options.desc;
-    // article.category = cate;
-    // article.tag = tag;
+    article.category = category;
+    article.tags = tags;
     try {
       return await this.articleRepository.save(article);
     } catch (err) {
