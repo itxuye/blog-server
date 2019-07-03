@@ -7,6 +7,9 @@ export interface IUser {
 export interface IUserPayload {
   username: string;
   password: string;
+  desc?: string;
+  email?: string;
+  gravatar?: string;
 }
 
 export interface IUpdateUserPayload {
