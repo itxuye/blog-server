@@ -52,7 +52,8 @@ export class ArticleService {
         'article.createAt',
         'article.title',
         'article.views',
-        'article.status'
+        'article.status',
+        'article.content'
       ])
       .leftJoinAndSelect('article.category', 'category')
       .leftJoinAndSelect('article.tags', 'tags')
